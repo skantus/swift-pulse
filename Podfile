@@ -7,5 +7,12 @@ target 'Pulse' do
 
   # Pods for Pulse
   pod 'SwiftVideoBackground'
-
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Messaging'
+  pod 'Fabric'
+  pod 'Crashlytics'
+  pod 'Firebase/Database'
+  pod 'Firebase/RemoteConfig'
 end

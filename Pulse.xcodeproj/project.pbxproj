@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A17B2CF8240F014C004087C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A17B2CF7240F014C004087C2 /* GoogleService-Info.plist */; };
 		A1A67689240C0220008E90B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A67688240C0220008E90B5 /* AppDelegate.swift */; };
 		A1A6768B240C0220008E90B5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A6768A240C0220008E90B5 /* SceneDelegate.swift */; };
 		A1A6768D240C0220008E90B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A6768C240C0220008E90B5 /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		25508C1A9A2FE354F5EFB087 /* Pods-Pulse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pulse.debug.xcconfig"; path = "Target Support Files/Pods-Pulse/Pods-Pulse.debug.xcconfig"; sourceTree = "<group>"; };
 		5C2EED75C8F564811F08740B /* Pods_Pulse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pulse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17B2CF7240F014C004087C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A1A67685240C0220008E90B5 /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A67688240C0220008E90B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1A6768A240C0220008E90B5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				A1A67693240C0224008E90B5 /* LaunchScreen.storyboard */,
 				A1A67691240C0224008E90B5 /* Assets.xcassets */,
 				A1A67696240C0224008E90B5 /* Info.plist */,
+				A17B2CF7240F014C004087C2 /* GoogleService-Info.plist */,
 			);
 			path = Pulse;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			files = (
 				A1A67695240C0224008E90B5 /* LaunchScreen.storyboard in Resources */,
 				A1C2E4AF240C2DDC00913284 /* video-landing.mp4 in Resources */,
+				A17B2CF8240F014C004087C2 /* GoogleService-Info.plist in Resources */,
 				A1A67692240C0224008E90B5 /* Assets.xcassets in Resources */,
 				A1A67690240C0220008E90B5 /* Main.storyboard in Resources */,
 			);
