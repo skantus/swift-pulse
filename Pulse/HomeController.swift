@@ -28,12 +28,10 @@ class HomeController: UIViewController {
     
     func setPlayerItem() {
         
-        let token: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJhZTYyMTM4OC1lOWVkLTQ0ZTAtYTIyMC0wMzZmOWFkMWIzN2IiLCJ1c2VyIjp7ImlkIjoxMjExNTQ5LCJlbWFpbCI6InNyc2thbnR1c0BnbWFpbC5jb20ifX0.swFSmm8H82utuyxyQvqM2tDD8qnvF2gZWt0YuBm3zFhpvdH5P_MgWA-odCIEkV-xPP3iEeOwk_DEFTCnISaZuQ"
+        let token: String = "xyz"
         
         let videoUrl = URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!
         
-        // https://bitdash-a.akamaihd.net/content/sintel/subtitles/subtitles_es.vtt
-        // https://www.domestika.org/api/v2/video_item_srts/1392.vtt
         let vttURL = URL(string: "https://bitdash-a.akamaihd.net/content/sintel/subtitles/subtitles_es.vtt")!
 
         let videoPlusSubtitles = AVMutableComposition()
