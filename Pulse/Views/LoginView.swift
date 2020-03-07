@@ -48,7 +48,7 @@ extension LoginViewController {
     }
     
     func signInButton() -> UIButton {
-        let button = UIButton(type: .system)
+        let button = LoadingButton()
         button.frame = CGRect(x: 0, y: 0, width: self.view!.bounds.width * 0.9, height: 50)
         button.backgroundColor = UIColor.systemGreen
         button.setTitle("Sign In", for: .normal)

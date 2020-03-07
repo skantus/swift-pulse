@@ -10,13 +10,17 @@ import UIKit
 
 extension HomeController {
     
-    func title() -> UILabel {
-       let title = UILabel()
-       title.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
-       title.center.x = view.center.x + 40
-       title.center.y = view.center.y
-       title.text = "Home Controller"
-       return title
-   }
+    func signOutButton() -> UIButton {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0, y: 0, width: self.view!.bounds.width * 0.9, height: 50)
+        button.backgroundColor = UIColor.systemGreen
+        button.setTitle("Sign Out", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.layer.cornerRadius = 5
+        button.center.x = view.center.x
+        button.center.y = 500
+        button.addTarget(self, action: #selector(onSignOutPress), for: .touchUpInside)
+        return button
+    }
     
 }

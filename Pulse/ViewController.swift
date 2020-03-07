@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftVideoBackground
+import FirebaseAuth
 
 class ViewController: UIViewController {
 
@@ -15,7 +16,14 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         self.setNeedsStatusBarAppearanceUpdate()
+        
+        if let _ = Auth.auth().currentUser {
+            navigationController?.pushViewController(HomeController(), animated: true)
+            return
+        }
+        
         try? VideoBackground.shared.play(view: view, videoName: "video-landing", videoType: "mp4")
+        view.addSubview(signInButton())
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -25,12 +33,7 @@ class ViewController: UIViewController {
     @objc func navigateToSignInView() {
         navigationController?.pushViewController(LoginViewController(), animated: true)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(signInButton())
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
