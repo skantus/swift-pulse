@@ -11,15 +11,6 @@ import AVFoundation
 import FirebaseAuth
 
 class HomeController: UIViewController {
-
-    func setupViews() {
-        view.backgroundColor = UIColor.white
-        view.layer.addSublayer(playerLayerView())
-    
-        view.addSubview(playbackSlider())
-        view.addSubview(playButtonView())
-        view.addSubview(signOutButton())
-    }
     
     var player: AVPlayer?
     var playerItem:AVPlayerItem?
@@ -27,23 +18,15 @@ class HomeController: UIViewController {
     var playButton:UIButton?
     
     func setPlayerItem() {
-        
         let token: String = "xyz"
-        
-        let videoUrl = URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!
-        
+        let videoUrl = URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4")!
         let vttURL = URL(string: "https://bitdash-a.akamaihd.net/content/sintel/subtitles/subtitles_es.vtt")!
-
         let videoPlusSubtitles = AVMutableComposition()
-        
-        let headers: [AnyHashable : Any] = [
-            "content-type": "application/json",
-            "authorization": "Bearer \(token)"
-        ]
+        let headers: [AnyHashable : Any] = ["content-type": "application/json", "authorization": "Bearer \(token)"]
+        let subtitleAsset = AVURLAsset(url: vttURL, options: ["AVURLAssetHTTPHeaderFieldsKey": headers])
+        let requiredAssetKeys = ["playable", "hasProtectedContent"]
         
         videoAsset = AVURLAsset(url: videoUrl)
-        
-        let subtitleAsset = AVURLAsset(url: vttURL, options: ["AVURLAssetHTTPHeaderFieldsKey": headers])
         
         let subtitleTrack = videoPlusSubtitles.addMutableTrack(withMediaType: .text, preferredTrackID: kCMPersistentTrackID_Invalid)
         try? subtitleTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: videoAsset!.duration),
@@ -55,33 +38,36 @@ class HomeController: UIViewController {
                                          of: videoAsset!.tracks(withMediaType: .video)[0],
                                          at: CMTime.zero)
         
-        let requiredAssetKeys = ["playable", "hasProtectedContent"]
-        
         let playerItem: AVPlayerItem = AVPlayerItem(asset: videoPlusSubtitles, automaticallyLoadedAssetKeys: requiredAssetKeys)
-        
         playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [], context: nil)
-        
         player = AVPlayer(playerItem: playerItem)
+        player?.volume = 1
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .moviePlayback, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            view.backgroundColor = UIColor.black
+        }
     }
     
     func playerLayerView() -> AVPlayerLayer {
         setPlayerItem()
-        
         let playerLayer = AVPlayerLayer(player: player!)
         playerLayer.frame = view.bounds
         playerLayer.position.y = 180
-        
         return playerLayer
     }
     
     func playButtonView() -> UIButton {
         playButton = UIButton(type: UIButton.ButtonType.system) as UIButton
-        playButton!.frame = CGRect(x:5, y:300, width:view.bounds.width - 10, height:45)
+        playButton!.frame = CGRect(x: 180, y:160, width: 44, height:44)
         playButton!.backgroundColor = UIColor.lightGray
-        playButton!.setTitle("Play", for: UIControl.State.normal)
-        playButton!.tintColor = UIColor.black
+        playButton!.layer.cornerRadius = 23
+        playButton!.imageEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        playButton!.setImage(UIImage(named: "play.png"), for: .normal)
+        playButton!.tintColor = .black
         playButton!.addTarget(self, action: #selector(self.playButtonTapped(_:)), for: .touchUpInside)
-        
         return playButton!
     }
     
@@ -93,7 +79,6 @@ class HomeController: UIViewController {
         playbackSlider.isContinuous = true
         playbackSlider.tintColor = UIColor.green
         playbackSlider.addTarget(self, action: #selector(self.playbackSliderValueChanged(_:)), for: .valueChanged)
-        
         return playbackSlider
     }
     
@@ -127,9 +112,7 @@ class HomeController: UIViewController {
     @objc func playbackSliderValueChanged(_ playbackSlider:UISlider) {
         let seconds : Int64 = Int64(playbackSlider.value)
         let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
-       
         player!.seek(to: targetTime)
-       
         if player!.rate == 0 {
            player?.play()
         }
@@ -138,23 +121,30 @@ class HomeController: UIViewController {
     @objc func playButtonTapped(_ sender:UIButton) {
        if player?.rate == 0 {
             player!.play()
-           //playButton!.setImage(UIImage(named: "player_control_pause_50px.png"), forState: UIControlState.Normal)
-            playButton!.setTitle("Pause", for: UIControl.State.normal)
+            playButton!.setImage(UIImage(named: "pause.png"), for: .normal)
        } else {
            player!.pause()
-           //playButton!.setImage(UIImage(named: "player_control_play_50px.png"), forState: UIControlState.Normal)
-            playButton!.setTitle("Play", for: UIControl.State.normal)
+            playButton!.setImage(UIImage(named: "play.png"), for: .normal)
        }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupViews()
-    }
-    
     @objc func onSignOutPress() {
         try? Auth.auth().signOut()
         self.navigationController?.popToRootViewController(animated: true)
+    }
+        
+    
+    func setupViews() {
+        view.layer.addSublayer(playerLayerView())
+        view.addSubview(playbackSlider())
+        view.addSubview(playButtonView())
+        view.addSubview(signOutButton())
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.white
+        setupViews()
     }
     
     override func didReceiveMemoryWarning() {

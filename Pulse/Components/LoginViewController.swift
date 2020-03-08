@@ -5,6 +5,8 @@ class LoginViewController: UIViewController {
     var emailText =  UITextField()
     var passwordText =  UITextField()
     
+    var vSpinner : UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupContentView()
@@ -18,21 +20,19 @@ class LoginViewController: UIViewController {
     
     @objc func onSignInPress() {
         guard let email = self.emailText.text, let password = self.passwordText.text else {
-          print("email/password can't be empty")
-          return
+            self.showAlert("email/password can't be empty")
+            return
         }
         
-        self.signInButton().loadingIndicator(true)
+        signInButton().loadingIndicator(true)
         
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             if (error != nil) {
-                self!.signInButton().loadingIndicator(false)
                 self?.showAlert("\(error?.localizedDescription ?? "Unknow error")")
                 return
             }
-            
-            self!.signInButton().loadingIndicator(false)
-            self?.navigationController?.pushViewController(HomeController(), animated: true)
+
+            self?.navigationController?.pushViewController(TabBarController(), animated: true)
         }
     }
     

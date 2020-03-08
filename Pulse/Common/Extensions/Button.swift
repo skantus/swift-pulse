@@ -21,13 +21,15 @@ extension UIButton {
             indicator.tag = tag
             self.addSubview(indicator)
             indicator.startAnimating()
-        } else {
-            self.isEnabled = true
-            self.alpha = 1.0
-            if let indicator = self.viewWithTag(tag) as? UIActivityIndicatorView {
-                indicator.stopAnimating()
-                indicator.removeFromSuperview()
-            }
+            
+            return
+        }
+        
+        self.isEnabled = true
+        self.alpha = 1.0
+        if let indicator = self.viewWithTag(tag) as? UIActivityIndicatorView {
+            indicator.stopAnimating()
+            indicator.removeFromSuperview()
         }
     }
 }

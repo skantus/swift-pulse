@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         self.setNeedsStatusBarAppearanceUpdate()
         
         if let _ = Auth.auth().currentUser {
-            navigationController?.pushViewController(HomeController(), animated: true)
+            navigationController?.pushViewController(TabBarController(), animated: true)
             return
         }
         
